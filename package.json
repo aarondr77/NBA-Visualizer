@@ -8,7 +8,11 @@
     "aws-sdk": "latest",
     "express": "latest",
     "body-parser": "latest",
-    "mysql": "latest"
+    "mysql": "latest",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "cookie-parser": "~1.4.3",
+    "serve-favicon": "~2.4.2"
   },
   "scripts": {
     "start": "node app.js"
