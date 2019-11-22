@@ -1,0 +1,26 @@
+{
+  "name": "nba-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "npm",
+  "dependencies": {
+    "ejs": "latest",
+    "aws-sdk": "latest",
+    "express": "latest",
+    "body-parser": "latest",
+    "mysql": "latest"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aarondr77/NBA-Visualizer.git"
+  },
+  "author": "Malhar, Aaron, Terry, Tyler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aarondr77/NBA-Visualizer/issues"
+  },
+  "homepage": "https://github.com/aarondr77/NBA-Visualizer#readme"
+}
