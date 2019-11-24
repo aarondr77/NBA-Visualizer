@@ -45,15 +45,6 @@ router.get('/', function(req, res) {
       res.json(data)
     }
   });
-    // var query = 'SELECT *  FROM Draft'; 
-    // connection.query(query, function (err, rows, fields) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     console.log(rows);
-    //     res.json(rows);
-    //   }
-    // });  
   });
 
 
