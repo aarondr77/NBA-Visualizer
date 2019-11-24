@@ -11,9 +11,9 @@ var connection = oracledb.getConnection({
     connectString : "cis450project.ctwsisw9u9yz.us-east-1.rds.amazonaws.com:1521/NBADATA"
 });
 
-function send_query(query, callback) {
+function query_db(query, callback) {
   try {
-    console.log("Attempting connection")
+    console.log("Trying to connect")
 
     oracledb.getConnection({
         user          : 'admin',
@@ -37,7 +37,7 @@ function send_query(query, callback) {
 
 
 router.get('/', function(req, res) {
-  send_query("SELECT * FROM Draft", function(data, err) {
+  query_db("SELECT * FROM Draft", function(data, err) {
     if (err) {
       console.log(err)
     }
