@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 
 /* ----- Connects to your mySQL database ----- */
 
@@ -36,8 +37,8 @@ function query_db(query, callback) {
 
 router.get('/', function(req, res) {
   console.log("printing homepage")
-  res.render('views/homepage.html')
-  //res.sendFile(path.join(__dirname, 'views', 'homepage.html'));
+  // res.render('views/homepage.html')
+  res.sendFile(path.join(__dirname, 'views', 'homepage.html'));
 });
 
 /* ----- ------------------------------- ----- */
