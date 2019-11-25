@@ -1,16 +1,16 @@
-.people-container {
+.query-container {
   display: flex;
   flex-flow: column wrap;
   margin-top: 10px;
 }
 
-.people-container .person {
+.query-container .team {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   height: 40px;
 }
 
-.person .column {
+.team .column {
   flex: 1 0 20%;
 }
