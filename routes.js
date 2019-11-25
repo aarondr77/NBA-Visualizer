@@ -58,17 +58,17 @@ router.get('/test', function(req, res) {
 
 router.get('/team/:inputTeam', function(req, res) {
   var inputTeam = req.params.inputTeam;
-  query_db("SELECT t.TM as Team, t.Year as Year FROM Team t" + "WHERE t.TM=\'"+inputTeam+"\'", function(data, err) {
+  var query = `SELECT t.TM as Team, t.Year as Year FROM Team t WHERE t.TM = '` + inputTeam + `'`; 
+  query_db(query, function(data, err) {
     if (err) {
       console.log(err)
     }
     else {
+      console.log(data)
       res.json(data)
     }
   });
 });
-
-
 
 
 module.exports = router;
