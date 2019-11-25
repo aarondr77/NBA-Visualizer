@@ -1,0 +1,100 @@
+# Most Likely Shot Value for Player in Particular Season
+
+SELECT *
+FROM
+(SELECT player, season, shot_value AS most_likely_shot_value
+FROM shots
+WHERE player = input_player AND season = input_season
+GROUP BY player, season, shot_value
+ORDER BY COUNT(*) DESC)
+WHERE ROWNUM < 2;
+
+
+Ex)
+Takes input_player and input_season
+returns player, season, most_likely_shot_value
+
+SELECT *
+FROM
+(SELECT player, season, shot_value AS most_likely_shot_valueFROM shots
+WHERE player = 'Mahmoud Abdul-Rauf' AND season = 2001
+GROUP BY player, season, shot_value
+ORDER BY COUNT(*) DESC)
+WHERE ROWNUM < 2;
+
+
+# Most Likely Place for Player to Make a Shot in a Particular season
+
+SELECT player, season, AVG(shot_distance_ft) as most_likely_distance
+FROM AllShots
+WHERE player = input_player AND season = input_season AND outcome = 1
+GROUP BY player, season
+
+Ex)
+Take input_player and input_season
+Returns player, season, most_likely_distance
+
+SELECT player, season, AVG(shot_distance_ft) as most_likely_distance
+FROM shots
+WHERE player = 'Mahmoud Abdul-Rauf' AND season = 2001 AND outcome = 1
+GROUP BY player, season
+
+
+# Player's True Shooting Percentage in Rookie Year
+
+SELECT player_name, season_year as rookie_year, ts_percent
+FROM
+(SELECT draft.player as player_name, draft.year as draft_year, seasonstats.year as season_year, seasonstats.ts_percent as ts_percent
+FROM draft
+INNER JOIN seasonstats ON draft.id = seasonstats.id)
+WHERE draft_year + 1 = season_year and player_name = input_player
+
+Ex)
+Takes in input_player
+Returns player_name, rookie_year, and ts_percent
+
+SELECT player_name, season_year as rookie_year, ts_percent
+FROM
+(SELECT draft.player as player_name, draft.year as draft_year, seasonstats.year as season_year, seasonstats.ts_percent as ts_percent
+FROM draft
+INNER JOIN seasonstats ON draft.id = seasonstats.id)
+WHERE draft_year + 1 = season_year and player_name = 'Jimmy Butler'
+
+# Number of clutch shots by a player in a given season where a clutch shot is under 5 seconds left in last quarter
+
+WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+FROM shots
+WHERE player = input_player and quarter = 4)
+SELECT player, count(*) as clutch_shot_num, season
+FROM seconds_table
+WHERE player = input_player and season = input_season and seconds_left < 5
+GROUP BY player, season
+
+
+Ex) Takes in input_player and input_season
+
+WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+FROM shots
+WHERE player = 'Stephen Curry' and quarter = 4)
+SELECT player, count(*) as clutch_shot_num, season
+FROM seconds_table
+WHERE player = 'Stephen Curry' and season = '2015' and seconds_left < 5
+GROUP BY player, season
+
+# Players with higher field goal percent than team avg in a given season
+
+SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent
+FROM seasonstats
+INNER JOIN team
+ON team.tm = seasonstats.tm AND seasonstats.year = team.year
+WHERE seasonstats.fg_percent > team.fg_percent and team.year = input_year and team.tm = input_team
+
+
+Ex)
+Takes in input_year and input_team
+
+SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent
+FROM seasonstats
+INNER JOIN team
+ON team.tm = seasonstats.tm AND seasonstats.year = team.year
+WHERE seasonstats.fg_percent > team.fg_percent and team.year = 2013 and team.tm = 'CHI'
