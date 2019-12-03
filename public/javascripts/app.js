@@ -1,7 +1,8 @@
 var app = angular.module('NBA-Visualizer', []);
-
+/*
 app.controller('teamController', function($scope, $http) {
   $scope.submitTeamQuery = function() {
+    console.log("BINDING")
     $http({
       url: '/team/' + $scope.team,
       method: 'GET'
@@ -13,7 +14,22 @@ app.controller('teamController', function($scope, $http) {
     });
   }
 });
-
+*/
+app.controller('teamController', function($scope, $http) {
+  $scope.submitTeamQuery = function() {
+    console.log("BINDING")
+    $http({
+      url: '/team/' + $scope.team,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      console.log("success")
+      console.log("Team: ", response.data);
+      $scope.team = response.data;
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
+  }
+});
 
 // Template for adding a controller
 /*

@@ -15,6 +15,7 @@ var connection = oracledb.getConnection({
 function query_db(query, callback) {
   try {
     console.log("Trying to connect")
+    console.log("update")
 
     oracledb.getConnection({
         user          : 'admin',
@@ -47,7 +48,6 @@ router.get('/', function(req, res) {
 router.get('/test', function(req, res) {
   query_db("SELECT * FROM Draft", function(data, err) {
     if (err) {
-      res.render("homepage.html")
       console.log(err)
     }
     else {
@@ -59,12 +59,14 @@ router.get('/test', function(req, res) {
 router.get('/team/:inputTeam', function(req, res) {
   var inputTeam = req.params.inputTeam;
   var query = `SELECT t.TM as Team, t.Year as Year FROM Team t WHERE t.TM = '` + inputTeam + `'`; 
-  query_db(query, function(data, err) {
+  query_db(query, function(err, data) {
     if (err) {
       console.log(err)
     }
     else {
+      console.log("here")
       console.log(data)
+
       res.json(data)
     }
   });
