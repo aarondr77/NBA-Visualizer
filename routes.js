@@ -38,7 +38,7 @@ function query_db(query, callback) {
 router.get('/', function(req, res) {
   console.log("printing homepage")
   // res.render('views/homepage.html')
-  res.sendFile(path.join(__dirname, 'views', 'homepage.html'));
+  res.sendFile(path.join(__dirname, 'views', 'player.html'));
 });
 
 
@@ -68,14 +68,14 @@ router.get('/fieldGoalPercentage/:inputTeam/:inputYear', function(req, res) {
   console.log(inputTeam)
   console.log(inputYear)
   var query = `
-    SELECT team.tm as team, 
-           seasonstats.player as player_name, 
-           team.year as season_year, 
-           seasonstats.fg_percent as player_fg_percent, 
-           team.fg_percent as team_fg_percent 
-    FROM seasonstats 
-    INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year 
-    WHERE seasonstats.fg_percent > team.fg_percent 
+    SELECT team.tm as team,
+           seasonstats.player as player_name,
+           team.year as season_year,
+           seasonstats.fg_percent as player_fg_percent,
+           team.fg_percent as team_fg_percent
+    FROM seasonstats
+    INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year
+    WHERE seasonstats.fg_percent > team.fg_percent
     and team.year = '` + inputYear + `' and team.tm = '` + inputTeam + `'`;
   query_db(query, function(err, data) {
     if (err) {
