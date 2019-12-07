@@ -33,9 +33,9 @@ app.controller('teamController', function($scope, $http) {
 
   $scope.submitTrueShootingQuery = function () {
     console.log("HERE")
-    console.log($scope.shootingpercentage)
+    console.log($scope.shootingpercentageInput)
     $http({
-      url: '/true-shooting-percentage/' + $scope.shootingpercentage,
+      url: '/true-shooting-percentage/' + $scope.shootingpercentageInput,
       method: 'GET'
     }).then(function successCallback(response) {
       console.log("success")
