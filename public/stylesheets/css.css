@@ -42,14 +42,14 @@
   background-color: #ececec;
 }
 
-.query-container .shootingpercentage, .query-container .likelyshot, .query-container .likelyshotValue, .query-container .clutchness{
+.query-container .shootingpercentage, .query-container .likelyshot, .query-container .likelyshotValue, .query-container .clutchness, .query_container .player_fg {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   height: 40px;
 }
 
-.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column, .clutchness .column {
+.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column, .clutchness .column, .player_fg .column{
   flex: 1 0 20%;
 }
 
