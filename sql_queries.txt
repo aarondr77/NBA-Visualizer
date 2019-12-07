@@ -16,7 +16,7 @@ returns player, season, most_likely_shot_value
 
 SELECT *
 FROM
-(SELECT player, season, shot_value AS most_likely_shot_valueFROM shots
+(SELECT player, season, shot_value AS most_likely_shot_value FROM shots
 WHERE player = 'Mahmoud Abdul-Rauf' AND season = 2001
 GROUP BY player, season, shot_value
 ORDER BY COUNT(*) DESC)
@@ -115,3 +115,51 @@ FROM draft
 INNER JOIN seasonstats ON draft.player = seasonstats.player and seasonstats.year = (draft.year + 1)
 INNER JOIN team ON team.year = draft.year
 WHERE team.two_p_percent < seasonstats.two_p_percent and team.year = 2010
+
+
+
+OPTIMIZATION:
+
+BEFORE:
+
+SELECT DISTINCT team.tm as team_name, team.year as year, draft.player as rookie
+FROM draft, seasonstats, team
+WHERE draft.player = seasonstats.player and seasonstats.year = (draft.year + 1) and team.year = draft.year and team.two_p_percent < seasonstats.two_p_percent and team.year = 2010
+
+0.093 seconds
+
+AFTER: We pushed the projections as close to the tables as possible, and also used joins instead of cross products.
+
+SELECT DISTINCT team1.tm as team_name, team1.year as year, draft1.player as rookie
+FROM (SELECT year, player FROM draft) draft1
+INNER JOIN (SELECT player, year, two_p_percent FROM seasonstats) seasonstats1 ON draft1.player = seasonstats1.player and seasonstats1.year = (draft1.year + 1)
+INNER JOIN (SELECT year, two_p_percent, tm FROM team) team1 ON team1.year = draft1.year
+WHERE team1.two_p_percent < seasonstats1.two_p_percent and team1.year = 2010
+
+0.022 seconds
+
+
+BEFORE:
+
+WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+FROM shots
+WHERE player = 'Stephen Curry' and quarter = 4)
+SELECT player, count(*) as clutch_shot_num, season
+FROM seconds_table
+WHERE player = 'Stephen Curry' and season = '2015' and seconds_left < 5
+GROUP BY player, season
+
+0.016 seconds
+
+AFTER: Added indexing on name to make query faster.
+
+CREATE INDEX index1 ON shots (player);
+WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+FROM shots
+WHERE player = 'Stephen Curry' and quarter = 4)
+SELECT player, count(*) as clutch_shot_num, season
+FROM seconds_table
+WHERE player = 'Stephen Curry' and season = '2015' and seconds_left < 5
+GROUP BY player, season
+
+0.011 seconds
