@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
-    <link href="/stylesheets/homepage.css" rel="stylesheet">
+    <link href="/stylesheets/teampage.css" rel="stylesheet">
   </head>
 
-  <body ng-controller="teamController">
+  <body ng-controller="teamPageController">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <span class="navbar-brand center">NBA Data Visualizer</span>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -20,47 +20,36 @@
         </div>
       </div>
     </nav>
+
+
     </br>
 
-    <div class="query-container">
-        <div class="jumbotron">
-          <div class="h5">Player’s true shooting percentage rookie year (Query 3)</div>
-          <div class="input-container">
-            <input type="text" ng-model="shootingpercentage" placeholder="Enter Player" class="input_player"/>
-            <button ng-click="submitTrueShootingQuery()" class="submit-btn">Submit</button>
-          </div>
-          <div class="result-container">
-              <div class="results">
-                  <div class="header"><strong>Player Name</strong></div>
-                  <div class="header"><strong>Rookie Season</strong></div>
-                  <div class="header"><strong>True Shooting Percentage</strong></div>
-              </div>
-            <div class="shootingpercentage" ng-repeat="p in shootingpercentage">
-            <div class="column"> {{p[0]}}</div>
-            <div class="column"> {{p[1]}}</div>
-            <div class="column"> {{p[2]}}</div>
-            </div>
-        </div>
-      </div>
-    </div> 
-
-
-    <div class="query-container">
+    <div class="container query-container">
       <div class="jumbotron">
         <div class="h5">Make a Query</div>
         <div class="input-container">
           <input type="text" ng-model="teamName" placeholder="Enter Team" class="team-input"/>
+          <input type="text" ng-model="year" placeholder="Enter Year" class="year-input"/>
           <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
         </div>
         <div class="result-container">
-          <div class="team" ng-repeat="t in team">
-          <div class="column"> {{t[0]}}</div>
-          <div class="column"> {{t[1]}}</div>
+            <div class="team">
+                <div class="header"><strong>Team Name</strong></div>
+                <div class="header"><strong>Player Name</strong></div>
+                <div class="header"><strong>Season Year</strong></div>
+                <div class="header"><strong>Player FG Percent</strong></div>
+                <div class="header"><strong>Team FG Percent</strong></div>
+            </div>
+          <div class="team" id="results" ng-repeat="t in team">
+            <div class="teamName">{{t[0]}}</div>
+            <div class="playerName">{{t[1]}}</div>
+            <div class="seasonYear">{{t[2]}}</div>
+            <div class="playerFgPercent">{{t[3]}}</div>
+            <div class="teamFgPercent">{{t[4]}}</div>
           </div>
       </div>
     </div>
-  
- 
+
     <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

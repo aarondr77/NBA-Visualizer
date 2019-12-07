@@ -42,6 +42,13 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'views', 'homepage.html'));
 });
 
+
+router.get('/team', function(req, res) {
+  console.log("printing team page")
+  // res.render('views/homepage.html')
+  res.sendFile(path.join(__dirname, 'views', 'team.html'));
+});
+
 /* ----- ------------------------------- ----- */
 
 
@@ -56,9 +63,11 @@ router.get('/test', function(req, res) {
   });
 });
 
-router.get('/team/:inputTeam', function(req, res) {
+router.get('/team/:inputTeam/:inputYear', function(req, res) {
   var inputTeam = req.params.inputTeam;
-  var query = `SELECT t.TM as Team, t.Year as Year FROM Team t WHERE t.TM = '` + inputTeam + `'`; 
+  var inputYear = req.params.inputYear;
+  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'"; 
+  console.log(query); 
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)
