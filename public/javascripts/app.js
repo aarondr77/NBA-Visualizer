@@ -66,7 +66,7 @@ app.controller('teamPageController', function($scope, $http) {
       method: 'GET'
     }).then(function successCallback(response) {
       console.log('got fgp results>>>', response.data.rows)
-      var data = response.data.rows;
+      var data = response.data.rows.map(x => [x[0], x[1], x[2], x[3].toFixed(3), x[4].toFixed(3)]);
       $scope.player_fg = data;
     }, function errorCallback(response) {
       console.log("Team ERROR: ", response);
