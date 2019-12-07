@@ -27,7 +27,7 @@ app.controller('teamController', function($scope, $http) {
 
   $scope.submitlikelyshotQuery = function () {
     $http({
-      url: '/likelyshot/' + $scope.inputPlayerValue + '/' + $scope.inputSeasonValue,
+      url: '/likelyshot/' + $scope.inputPlayer + '/' + $scope.inputSeason,
       method: 'GET'
     }).then(function successCallback(response) {
       var data = response.data.rows
