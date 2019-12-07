@@ -66,8 +66,8 @@ router.get('/test', function(req, res) {
 router.get('/team/:inputTeam/:inputYear', function(req, res) {
   var inputTeam = req.params.inputTeam;
   var inputYear = req.params.inputYear;
-  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'"; 
-  console.log(query); 
+  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'";
+  console.log(query);
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)
@@ -89,7 +89,7 @@ router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
     SELECT player, season, AVG(shot_distance_ft) as most_likely_distance
     FROM shots
     WHERE player = '` + inputPlayer + `' AND season = ` + inputYear + ` AND outcome = 1
-    GROUP BY player, season`; 
+    GROUP BY player, season`;
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)
@@ -113,7 +113,7 @@ router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
     (SELECT draft.player as player_name, draft.year as draft_year, seasonstats.year as season_year, seasonstats.ts_percent as ts_percent
     FROM draft
     INNER JOIN seasonstats ON draft.id = seasonstats.id)
-    WHERE draft_year + 1 = season_year and player_name = '` + inputPlayer +`'`; 
+    WHERE draft_year + 1 = season_year and player_name = '` + inputPlayer +`'`;
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)

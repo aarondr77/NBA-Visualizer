@@ -73,7 +73,7 @@ app.controller('teamPageController', function($scope, $http) {
       console.log("success")
       console.log("Team: ", response.data);
       var data = response.data.rows
-      $scope.team = data
+      $scope.high_fg_results = data
     }, function errorCallback(response) {
       console.log("Team ERROR: ", response);
     });

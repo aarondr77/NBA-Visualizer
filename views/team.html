@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
-    <link href="/stylesheets/teampage.css" rel="stylesheet">
+    <link href="/stylesheets/homepage.css" rel="stylesheet">
   </head>
 
   <body ng-controller="teamPageController">
@@ -26,35 +26,67 @@
 
     <div class="container query-container">
       <div class="jumbotron">
-        <div class="h5">Make a Query</div>
+        <div class="h5">Players with Higher FG percent than Team Avg in a Given Season</div>
         <div class="input-container">
           <input type="text" ng-model="teamName" placeholder="Enter Team" class="team-input"/>
           <input type="text" ng-model="year" placeholder="Enter Year" class="year-input"/>
           <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
         </div>
         <div class="result-container">
-            <div class="team">
+            <table id = "high_fg_table" class ="high_fg_results" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Team Name</th>
+                  <th>Player Name</th>
+                  <th>Season Year</th>
+                  <th>Player FG Percent</th>
+                  <th>Team FG Percent</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>team_name</td>
+                  <td>player_name</td>
+                  <td>season_year</td>
+                  <td>player_fg</td>
+                  <td>team_fg</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+    </br>
+
+    <div class="container query-container">
+      <div class="jumbotron">
+        <div class="h5">Rookie Players with Higher 2-point Percentage than Team</div>
+        <div class="input-container">
+          <input type="text" ng-model="year" placeholder="Enter Year" class="year-input"/>
+          <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
+        </div>
+        <div class="result-container">
+            <div class="results">
                 <div class="header"><strong>Team Name</strong></div>
                 <div class="header"><strong>Player Name</strong></div>
                 <div class="header"><strong>Season Year</strong></div>
-                <div class="header"><strong>Player FG Percent</strong></div>
-                <div class="header"><strong>Team FG Percent</strong></div>
             </div>
           <div class="team" id="results" ng-repeat="t in team">
             <div class="teamName">{{t[0]}}</div>
             <div class="playerName">{{t[1]}}</div>
             <div class="seasonYear">{{t[2]}}</div>
-            <div class="playerFgPercent">{{t[3]}}</div>
-            <div class="teamFgPercent">{{t[4]}}</div>
           </div>
       </div>
     </div>
+  </div>
 
     <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="../public/javascripts/scripts.js"</script>
   </body>
 
 </html>

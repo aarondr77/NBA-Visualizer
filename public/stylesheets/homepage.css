@@ -4,17 +4,6 @@
   margin-top: 10px;
 }
 
-.query-container .team {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  height: 40px;
-}
-
-.team .column {
-  flex: 1 0 20%;
-}
-
 .input-container .login-input {
   margin: 10px 0;
   width: 250px;
@@ -47,14 +36,6 @@
 
 .input-container .submit-btn:active {
   background: #d86bbe;
-}
-
-.result-container .team {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  height: 40px;
-  padding: 0 10px;
 }
 
 .result-container .shootingpercentage:hover , .result-container .likelyshot:hover{
