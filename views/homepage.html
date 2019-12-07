@@ -20,6 +20,30 @@
       </div>
     </nav>
     </br>
+
+    <div class="query-container">
+        <div class="jumbotron">
+          <div class="h5">Player’s true shooting percentage rookie year (Query 3)</div>
+          <div class="input-container">
+            <input type="text" ng-model="shootingpercentage" placeholder="Enter Player" class="input_player"/>
+            <button ng-click="submitTrueShootingQuery()" class="submit-btn">Submit</button>
+          </div>
+          <div class="result-container">
+              <div class="results">
+                  <div class="header"><strong>Player Name</strong></div>
+                  <div class="header"><strong>Rookie Season</strong></div>
+                  <div class="header"><strong>True Shooting Percentage</strong></div>
+              </div>
+            <div class="shootingpercentage" ng-repeat="p in shootingpercentage">
+            <div class="column"> {{p[0]}}</div>
+            <div class="column"> {{p[1]}}</div>
+            <div class="column"> {{p[2]}}</div>
+            </div>
+        </div>
+      </div>
+    </div> 
+
+
     <div class="query-container">
       <div class="jumbotron">
         <div class="h5">Make a Query</div>
@@ -29,12 +53,13 @@
         </div>
         <div class="result-container">
           <div class="team" ng-repeat="t in team">
-          <div class="column"> {{t}}</div>
-          <div class="column"> {{t}}</div>
+          <div class="column"> {{t[0]}}</div>
+          <div class="column"> {{t[1]}}</div>
           </div>
       </div>
     </div>
-
+  
+ 
     <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

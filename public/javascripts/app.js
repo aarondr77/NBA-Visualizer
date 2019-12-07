@@ -29,6 +29,22 @@ app.controller('teamController', function($scope, $http) {
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
+  },
+
+  $scope.submitTrueShootingQuery = function () {
+    console.log("HERE")
+    console.log($scope.shootingpercentage)
+    $http({
+      url: '/true-shooting-percentage/' + $scope.shootingpercentage,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      console.log("success")
+      console.log("Team: ", response.data);
+      var data = response.data.rows
+      $scope.shootingpercentage = data
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
   }
 });
 

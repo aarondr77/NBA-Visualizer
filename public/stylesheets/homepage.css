@@ -57,6 +57,29 @@
   padding: 0 10px;
 }
 
-.result-container .team:hover {
+.result-container .shootingpercentage:hover {
   background-color: #ececec;
+}
+
+.query-container .shootingpercentage {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 40px;
+}
+
+.shootingpercentage .column {
+  flex: 1 0 20%;
+}
+
+.results .header {
+  flex: 1 0 25%;
+}
+
+.result-container .results {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
 }
