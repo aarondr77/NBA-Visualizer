@@ -45,6 +45,20 @@ app.controller('teamController', function($scope, $http) {
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
+  },
+
+  $scope.submitlikelyshotQuery = function () {
+    $http({
+      url: '/likelyshot/' + $scope.inputPlayer + '/' + $scope.inputSeason,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      console.log("success")
+      console.log("Team: ", response.data);
+      var data = response.data.rows
+      $scope.likelyshot = data
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
   }
 });
 

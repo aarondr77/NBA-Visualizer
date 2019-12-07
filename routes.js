@@ -80,6 +80,28 @@ router.get('/team/:inputTeam/:inputYear', function(req, res) {
   });
 });
 
+router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
+  var inputPlayer = req.params.inputPlayer
+  var inputYear = req.params.inputYear
+  console.log("input player: " + inputPlayer)
+  console.log("input year: " + inputYear)
+  var query = `
+    SELECT player, season, AVG(shot_distance_ft) as most_likely_distance
+    FROM shots
+    WHERE player = '` + inputPlayer + `' AND season = ` + inputYear + ` AND outcome = 1
+    GROUP BY player, season`; 
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      console.log("here")
+      console.log(data)
+      res.json(data)
+    }
+  });
+})
+
 
 router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
   var inputPlayer = req.params.inputPlayer;
