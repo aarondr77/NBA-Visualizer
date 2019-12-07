@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
-    <link href="/stylesheets/home.css" rel="stylesheet">
+    <link href="/stylesheets/homepage.css" rel="stylesheet">
   </head>
 
   <body ng-controller="teamController">
@@ -20,7 +20,7 @@
       </div>
     </nav>
     </br>
-    <div class="container query-container">
+    <div class="query-container">
       <div class="jumbotron">
         <div class="h5">Make a Query</div>
         <div class="input-container">
@@ -29,8 +29,8 @@
         </div>
         <div class="result-container">
           <div class="team" ng-repeat="t in team">
-          <div class="column"> {{t.Team}}</div>
-          <div class="column"> {{t.Year}}</div>
+          <div class="column"> {{t}}</div>
+          <div class="column"> {{t}}</div>
           </div>
       </div>
     </div>
