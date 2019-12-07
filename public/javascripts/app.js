@@ -66,10 +66,23 @@ app.controller('teamPageController', function($scope, $http) {
       method: 'GET'
     }).then(function successCallback(response) {
       console.log('got fgp results>>>', response.data.rows)
-      var data = response.data.rows
-      $scope.player_fg = data
+      var data = response.data.rows;
+      $scope.player_fg = data;
     }, function errorCallback(response) {
       console.log("Team ERROR: ", response);
+    });
+  }
+
+  $scope.submitTwoPointQuery = function() {
+    $http({
+      url: '/twoPointPercentage/' + $scope.yearRookie,
+      method: 'GET'
+    }).then(function callBack(response) {
+      var data = response.data.rows;
+      console.log('data >>', data)
+      $scope.rookieTeam = data;
+    }, function errCallback(response) {
+      console.log("2 point err ", response);
     });
   }
 });

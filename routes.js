@@ -88,6 +88,31 @@ router.get('/fieldGoalPercentage/:inputTeam/:inputYear', function(req, res) {
   });
 });
 
+router.get('/twoPointPercentage/:inputYear', function(req, res) {
+  var inputYear = req.params.inputYear;
+  console.log(inputYear)
+  var query = `
+    SELECT DISTINCT team1.tm as team_name, team1.year as year, t1.player as rookie
+    FROM (SELECT draft.year, draft.player, seasonstats1.tm, seasonstats1.two_p_percent
+          FROM draft
+          INNER JOIN (SELECT player, year, two_p_percent, tm
+                      FROM seasonstats) seasonstats1
+          ON draft.player = seasonstats1.player and seasonstats1.year = (draft.year + 1)) t1
+    INNER JOIN (SELECT year, two_p_percent, tm
+                FROM team) team1
+    ON team1.year = t1.year and team1.tm = t1.tm
+    WHERE team1.two_p_percent < t1.two_p_percent and team1.year = ` + inputYear;
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      console.log('two per results: ', data)
+      res.json(data)
+    }
+  });
+});
+
 router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
   var inputPlayer = req.params.inputPlayer
   var inputYear = req.params.inputYear

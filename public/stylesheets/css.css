@@ -49,11 +49,11 @@
   height: 40px;
 }
 
-.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column, .clutchness .column, .player_fg .column{
+.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column, .clutchness .column, .player_fg .column {
   flex: 1 0 20%;
 }
 
-.results .header {
+.results .header, .results .column {
   flex: 1 0 25%;
 }
 

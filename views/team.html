@@ -58,7 +58,7 @@
         <div class="h5">Rookie Players with Higher 2-point Percentage than Team</div>
         <div class="input-container">
           <input type="text" ng-model="yearRookie" placeholder="Enter Year" class="year-input"/>
-          <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
+          <button ng-click="submitTwoPointQuery()" class="submit-btn">Submit</button>
         </div>
         <div class="result-container">
             <div class="results">
@@ -66,10 +66,10 @@
                 <div class="header"><strong>Player Name</strong></div>
                 <div class="header"><strong>Season Year</strong></div>
             </div>
-          <div class="team" id="results" ng-repeat="t in team">
-            <div class="teamName">{{t[0]}}</div>
-            <div class="playerName">{{t[1]}}</div>
-            <div class="seasonYear">{{t[2]}}</div>
+          <div class="results" ng-repeat="t in rookieTeam">
+            <div class="column">{{t[0]}}</div>
+            <div class="column">{{t[1]}}</div>
+            <div class="column">{{t[2]}}</div>
           </div>
       </div>
     </div>
