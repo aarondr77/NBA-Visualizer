@@ -98,3 +98,20 @@ FROM seasonstats
 INNER JOIN team
 ON team.tm = seasonstats.tm AND seasonstats.year = team.year
 WHERE seasonstats.fg_percent > team.fg_percent and team.year = 2013 and team.tm = 'CHI'
+
+# Rookie players that had higher 2 pt percentage than team average in a given year.
+
+SELECT DISTINCT team.tm as team_name, team.year as year, draft.player as rookie
+FROM draft
+INNER JOIN seasonstats ON draft.player = seasonstats.player and seasonstats.year = (draft.year + 1)
+INNER JOIN team ON team.year = draft.year
+WHERE team.two_p_percent < seasonstats.two_p_percent and team.year = input_year
+
+Ex)
+Takes in input_year
+
+SELECT DISTINCT team.tm as team_name, team.year as year, draft.player as rookie
+FROM draft
+INNER JOIN seasonstats ON draft.player = seasonstats.player and seasonstats.year = (draft.year + 1)
+INNER JOIN team ON team.year = draft.year
+WHERE team.two_p_percent < seasonstats.two_p_percent and team.year = 2010
