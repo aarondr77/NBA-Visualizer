@@ -65,7 +65,18 @@ router.get('/test', function(req, res) {
 router.get('/fieldGoalPercentage/:inputTeam/:inputYear', function(req, res) {
   var inputTeam = req.params.inputTeam;
   var inputYear = req.params.inputYear;
-  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, ROUND(seasonstats.fg_percent, 3) as player_fg_percent, ROUND(team.fg_percent, 3) as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'";
+  console.log(inputTeam)
+  console.log(inputYear)
+  var query = `
+    SELECT team.tm as team, 
+           seasonstats.player as player_name, 
+           team.year as season_year, 
+           seasonstats.fg_percent as player_fg_percent, 
+           team.fg_percent as team_fg_percent 
+    FROM seasonstats 
+    INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year 
+    WHERE seasonstats.fg_percent > team.fg_percent 
+    and team.year = '` + inputYear + `' and team.tm = '` + inputTeam + `'`;
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)

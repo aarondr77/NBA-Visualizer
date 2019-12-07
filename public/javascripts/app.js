@@ -1,18 +1,8 @@
 var app = angular.module('NBA-Visualizer', []);
 
-app.controller('teamController', function($scope, $http) {
-  $scope.submitTeamQuery = function() {
-    $http({
-      url: '/team/' + $scope.teamName,
-      method: 'GET'
-    }).then(function successCallback(response) {
-      var data = response.data.rows
-      $scope.team = data
-    }), function errorCallback(response) {
-      console.log("Team ERROR: ", response);
-    }
-  },
-
+// controller for the player page
+app.controller('playerPageController', function($scope, $http) {
+  // call the route to find true shooting scores
   $scope.submitTrueShootingQuery = function () {
     $http({
       url: '/true-shooting-percentage/' + $scope.shootingpercentageInput,
@@ -25,6 +15,7 @@ app.controller('teamController', function($scope, $http) {
     }
   },
 
+  // call the route to find the most likely shot location
   $scope.submitlikelyshotQuery = function () {
     $http({
       url: '/likelyshot/' + $scope.inputPlayer + '/' + $scope.inputSeason,
@@ -37,6 +28,7 @@ app.controller('teamController', function($scope, $http) {
     }
   }, 
 
+  // call the route to find the most likely shot value
   $scope.submitlikelyshotValueQuery = function () {
     $http({
       url: '/likelyshotValue/' + $scope.inputPlayerValue + '/' + $scope.inputSeasonValue,
@@ -49,6 +41,7 @@ app.controller('teamController', function($scope, $http) {
     }
   },
   
+  // call the route to find the number of clutch shots taken in season
   $scope.submitClutchQuery = function () {
     $http({
       url: '/clutch/' + $scope.inputPlayerClutch + '/' + $scope.inputSeasonClutch,
@@ -62,14 +55,18 @@ app.controller('teamController', function($scope, $http) {
   } 
 });
 
-
+// Controller for the team page
 app.controller('teamPageController', function($scope, $http) {
+  // call the route to find players with higher than average field goal percentage
   $scope.submitTeamQuery = function() {
+    console.log($scope.teamName)
+    console.log($scope.year)
     $http({
       url: '/fieldGoalPercentage/' + $scope.teamName + '/' + $scope.year,
       method: 'GET'
     }).then(function successCallback(response) {
       var data = response.data.rows
+      console.log(response.data)
       $scope.high_fg_results = data
     }, function errorCallback(response) {
       console.log("Team ERROR: ", response);
