@@ -57,18 +57,18 @@
   padding: 0 10px;
 }
 
-.result-container .shootingpercentage:hover , .result-container .likelyshot:hover, .result-container .likelyshotValue:hover{
+.result-container .shootingpercentage:hover , .result-container .likelyshot:hover, .result-container .likelyshotValue:hover, .result-container .clutchness:hover{
   background-color: #ececec;
 }
 
-.query-container .shootingpercentage, .query-container .likelyshot, .query-container .likelyshotValue{
+.query-container .shootingpercentage, .query-container .likelyshot, .query-container .likelyshotValue, .query-container .clutchness{
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   height: 40px;
 }
 
-.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column {
+.shootingpercentage .column, .likelyshot .column, .likelyshotValue .column, .clutchness .column {
   flex: 1 0 20%;
 }
 

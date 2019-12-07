@@ -60,6 +60,22 @@ app.controller('teamController', function($scope, $http) {
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
+  },
+  
+  $scope.submitClutchQuery = function () {
+    console.log($scope.inputPlayerClutch)
+    console.log($scope.inputSeasonClutch)
+    $http({
+      url: '/clutch/' + $scope.inputPlayerClutch + '/' + $scope.inputSeasonClutch,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      console.log("success")
+      console.log("Team: ", response.data);
+      var data = response.data.rows
+      $scope.clutchness = data
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
   } 
 });
 

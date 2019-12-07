@@ -127,6 +127,32 @@ router.get('/likelyshotValue/:inputPlayer/:inputYear', function (req, res) {
   });
 })
 
+router.get('/clutch/:inputPlayer/:inputYear', function (req, res) {
+  var inputPlayer = req.params.inputPlayer
+  var inputYear = req.params.inputYear
+  console.log("HEHEHEHEHEHHEHEHE")
+  console.log("input player: " + inputPlayer)
+  console.log("input year: " + inputYear)
+  var query = `
+    WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+    FROM shots
+    WHERE player = '` + inputPlayer + `' and quarter = 4)
+    SELECT player, count(*) as clutch_shot_num, season
+    FROM seconds_table
+    WHERE player = '` + inputPlayer + `' and season = '` + inputYear + `' and seconds_left < 5
+    GROUP BY player, season`; 
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      console.log("here")
+      console.log(data)
+      res.json(data)
+    }
+  });
+})
+
 
 router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
   var inputPlayer = req.params.inputPlayer;
