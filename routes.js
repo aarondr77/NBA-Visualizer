@@ -15,7 +15,6 @@ var connection = oracledb.getConnection({
 function query_db(query, callback) {
   try {
     console.log("Trying to connect")
-    console.log("update")
 
     oracledb.getConnection({
         user          : 'admin',
@@ -23,11 +22,11 @@ function query_db(query, callback) {
         connectString : "cis450project.ctwsisw9u9yz.us-east-1.rds.amazonaws.com:1521/NBADATA"
       }, function(err, connection) {
         if (err) {
+          console.log("error")
           console.error(err);
           return;
         }
         connection.execute(query, callback);
-
     });
   } catch (err) {
       console.log("Error connecting to database: " + err)
@@ -63,18 +62,15 @@ router.get('/test', function(req, res) {
   });
 });
 
-router.get('/team/:inputTeam/:inputYear', function(req, res) {
+router.get('/fieldGoalPercentage/:inputTeam/:inputYear', function(req, res) {
   var inputTeam = req.params.inputTeam;
   var inputYear = req.params.inputYear;
-  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, seasonstats.fg_percent as player_fg_percent, team.fg_percent as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'";
-  console.log(query);
+  var query = "SELECT team.tm as team, seasonstats.player as player_name, team.year as season_year, ROUND(seasonstats.fg_percent, 3) as player_fg_percent, ROUND(team.fg_percent, 3) as team_fg_percent FROM seasonstats INNER JOIN team ON team.tm = seasonstats.tm AND seasonstats.year = team.year WHERE seasonstats.fg_percent > team.fg_percent and team.year = " + inputYear +" and team.tm = '" + inputTeam + "'";
   query_db(query, function(err, data) {
     if (err) {
       console.log(err)
     }
     else {
-      console.log("here")
-      console.log(data)
       res.json(data)
     }
   });
@@ -83,8 +79,6 @@ router.get('/team/:inputTeam/:inputYear', function(req, res) {
 router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
   var inputPlayer = req.params.inputPlayer
   var inputYear = req.params.inputYear
-  console.log("input player: " + inputPlayer)
-  console.log("input year: " + inputYear)
   var query = `
     SELECT player, season, AVG(shot_distance_ft) as most_likely_distance
     FROM shots
@@ -95,8 +89,47 @@ router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
       console.log(err)
     }
     else {
-      console.log("here")
-      console.log(data)
+      res.json(data)
+    }
+  });
+})
+
+router.get('/likelyshotValue/:inputPlayer/:inputYear', function (req, res) {
+  var inputPlayer = req.params.inputPlayer
+  var inputYear = req.params.inputYear
+  var query = `
+    SELECT *
+    FROM (SELECT player, season, shot_value AS most_likely_shot_value
+      FROM shots
+      WHERE player = '` + inputPlayer + `' AND season = ` + inputYear  + ` GROUP BY player, season, shot_value
+      ORDER BY COUNT(*) DESC) t1
+    WHERE ROWNUM < 2`;
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      res.json(data)
+    }
+  });
+})
+
+router.get('/clutch/:inputPlayer/:inputYear', function (req, res) {
+  var inputPlayer = req.params.inputPlayer
+  var inputYear = req.params.inputYear
+  var query = `
+    WITH seconds_table as (SELECT player, (to_number(SUBSTR(game_clock, 1, instr(game_clock, ':')-1)) * 60 + to_number(SUBSTR(game_clock, instr(game_clock, ':')+1, instr(game_clock, ':')+3))) as seconds_left, game_clock, season
+    FROM shots
+    WHERE player = '` + inputPlayer + `' and quarter = 4)
+    SELECT player, count(*) as clutch_shot_num, season
+    FROM seconds_table
+    WHERE player = '` + inputPlayer + `' and season = '` + inputYear + `' and seconds_left < 5
+    GROUP BY player, season`;
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
       res.json(data)
     }
   });
@@ -105,8 +138,6 @@ router.get('/likelyshot/:inputPlayer/:inputYear', function (req, res) {
 
 router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
   var inputPlayer = req.params.inputPlayer;
-  console.log("input Player")
-  console.log(inputPlayer)
   var query = `
     SELECT player_name, season_year as rookie_year, ts_percent
     FROM
@@ -119,8 +150,6 @@ router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
       console.log(err)
     }
     else {
-      console.log("here")
-      console.log(data)
       res.json(data)
     }
   });

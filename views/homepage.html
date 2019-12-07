@@ -22,6 +22,30 @@
     </nav>
     </br>
 
+
+    <div class="query-container">
+        <div class="jumbotron">
+          <div class="h5"> Most Likely Shot Value for Player in a Particular Season (Query 1)</div>
+          <div class="input-container">
+            <input type="text" ng-model="inputPlayerValue" placeholder="Enter Player" class="input_player"/>
+            <input type="text" ng-model="inputSeasonValue" placeholder="Enter Season" class="input_season"/>
+            <button ng-click="submitlikelyshotValueQuery()" class="submit-btn">Submit</button>
+          </div>
+          <div class="result-container">
+              <div class="results">
+                  <div class="header"><strong>Player Name</strong></div>
+                  <div class="header"><strong>Season</strong></div>
+                  <div class="header"><strong>Most Likely Shot Value</strong></div>
+              </div>
+            <div class="likelyshotValue" ng-repeat="l in likelyshotValue">
+            <div class="column"> {{l[0]}}</div>
+            <div class="column"> {{l[1]}}</div>
+            <div class="column"> {{l[2]}}</div>
+            </div>
+          </div>
+        </div>
+    </div> 
+
     <div class="query-container">
         <div class="jumbotron">
           <div class="h5">Most Likely Place for Player to Make a Shot in a Particular season (Query 2)</div>
@@ -67,22 +91,28 @@
       </div>
     </div> 
 
-
     <div class="query-container">
-      <div class="jumbotron">
-        <div class="h5">Make a Query</div>
-        <div class="input-container">
-          <input type="text" ng-model="teamName" placeholder="Enter Team" class="team-input"/>
-          <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
-        </div>
-        <div class="result-container">
-          <div class="team" ng-repeat="t in team">
-          <div class="column"> {{t[0]}}</div>
-          <div class="column"> {{t[1]}}</div>
+        <div class="jumbotron">
+          <div class="h5"> Number of clutch shots by a given player in a particular season </div>
+          <div class="input-container">
+            <input type="text" ng-model="inputPlayerClutch" placeholder="Enter Player" class="input_player"/>
+            <input type="text" ng-model="inputSeasonClutch" placeholder="Enter Season" class="input_season"/>
+            <button ng-click="submitClutchQuery()" class="submit-btn">Submit</button>
           </div>
-      </div>
-    </div>
-  
+          <div class="result-container">
+              <div class="results">
+                  <div class="header"><strong>Player Name</strong></div>
+                  <div class="header"><strong>Season</strong></div>
+                  <div class="header"><strong>Most Likely Shot Value</strong></div>
+              </div>
+            <div class="clutchness" ng-repeat="l in clutchness">
+            <div class="column"> {{l[0]}}</div>
+            <div class="column"> {{l[1]}}</div>
+            <div class="column"> {{l[2]}}</div>
+            </div>
+          </div>
+        </div>
+    </div> 
  
     <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

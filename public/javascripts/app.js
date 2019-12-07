@@ -1,29 +1,11 @@
 var app = angular.module('NBA-Visualizer', []);
-/*
+
 app.controller('teamController', function($scope, $http) {
   $scope.submitTeamQuery = function() {
-    console.log("BINDING")
-    $http({
-      url: '/team/' + $scope.team,
-      method: 'GET'
-    }).then(res => {
-      console.log("Team: ", res.data);
-      $scope.team = res.data;
-    }, err => {
-      console.log("Team ERROR: ", err);
-    });
-  }
-});
-*/
-app.controller('teamController', function($scope, $http) {
-  $scope.submitTeamQuery = function() {
-    console.log("BINDING")
     $http({
       url: '/team/' + $scope.teamName,
       method: 'GET'
     }).then(function successCallback(response) {
-      console.log("success")
-      console.log("Team: ", response.data);
       var data = response.data.rows
       $scope.team = data
     }), function errorCallback(response) {
@@ -32,14 +14,10 @@ app.controller('teamController', function($scope, $http) {
   },
 
   $scope.submitTrueShootingQuery = function () {
-    console.log("HERE")
-    console.log($scope.shootingpercentageInput)
     $http({
       url: '/true-shooting-percentage/' + $scope.shootingpercentageInput,
       method: 'GET'
     }).then(function successCallback(response) {
-      console.log("success")
-      console.log("Team: ", response.data);
       var data = response.data.rows
       $scope.shootingpercentage = data
     }), function errorCallback(response) {
@@ -49,29 +27,48 @@ app.controller('teamController', function($scope, $http) {
 
   $scope.submitlikelyshotQuery = function () {
     $http({
-      url: '/likelyshot/' + $scope.inputPlayer + '/' + $scope.inputSeason,
+      url: '/likelyshot/' + $scope.inputPlayerValue + '/' + $scope.inputSeasonValue,
       method: 'GET'
     }).then(function successCallback(response) {
-      console.log("success")
-      console.log("Team: ", response.data);
       var data = response.data.rows
       $scope.likelyshot = data
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
-  }
+  }, 
+
+  $scope.submitlikelyshotValueQuery = function () {
+    $http({
+      url: '/likelyshotValue/' + $scope.inputPlayerValue + '/' + $scope.inputSeasonValue,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      var data = response.data.rows
+      $scope.likelyshotValue = data
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
+  },
+  
+  $scope.submitClutchQuery = function () {
+    $http({
+      url: '/clutch/' + $scope.inputPlayerClutch + '/' + $scope.inputSeasonClutch,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      var data = response.data.rows
+      $scope.clutchness = data
+    }), function errorCallback(response) {
+      console.log("Team ERROR: ", response);
+    }
+  } 
 });
 
 
 app.controller('teamPageController', function($scope, $http) {
   $scope.submitTeamQuery = function() {
-    console.log("BINDING")
     $http({
-      url: '/team/' + $scope.teamName + '/' + $scope.year,
+      url: '/fieldGoalPercentage/' + $scope.teamName + '/' + $scope.year,
       method: 'GET'
     }).then(function successCallback(response) {
-      console.log("success")
-      console.log("Team: ", response.data);
       var data = response.data.rows
       $scope.high_fg_results = data
     }, function errorCallback(response) {
@@ -80,18 +77,3 @@ app.controller('teamPageController', function($scope, $http) {
   }
 });
 
-// Template for adding a controller
-/*
-app.controller('dummyController', function($scope, $http) {
-  // normal variables
-  var dummyVar1 = 'abc';
-
-  // Angular scope variables
-  $scope.dummyVar2 = 'abc';
-
-  // Angular function
-  $scope.dummyFunction = function() {
-
-  };
-});
-*/

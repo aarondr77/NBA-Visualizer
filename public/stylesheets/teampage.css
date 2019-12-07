@@ -49,6 +49,7 @@
 
   .result-container {
     display: flex;
+    display: inline-block;
     flex-flow: column wrap;
     margin-top: 10px;
   }
