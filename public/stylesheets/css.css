@@ -72,6 +72,10 @@
   margin-top: 10px;
 }
 
+.big-result {
+  display:inline-block;
+}
+
 .results .header, .results .column {
   flex: 1 0 25%;
 }

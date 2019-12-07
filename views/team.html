@@ -32,13 +32,13 @@
           <input type="text" ng-model="year" placeholder="Enter Year" class="year-input"/>
           <button ng-click="submitTeamQuery()" class="submit-btn">Submit</button>
         </div>
-        <div class="result-container">
+        <div class="result-container big-result">
               <div class="results">
                 <div class="header"><strong>Team Name</strong></div>
                 <div class="header"><strong>Player Name</strong></div>
                 <div class="header"><strong>Season Year</strong></div>
-                <div class="header"><strong>Player FG Percent</strong></div>
-                <div class="header"><strong>Team FG Percent</strong></div>
+                <div class="header"><strong>Player FG %</strong></div>
+                <div class="header"><strong>Team FG % </strong></div>
               </div>
               <div class="results" id="results" ng-repeat="t in player_fg">
                   <div class="column">{{t[0]}}</div>
