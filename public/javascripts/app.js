@@ -24,7 +24,8 @@ app.controller('teamController', function($scope, $http) {
     }).then(function successCallback(response) {
       console.log("success")
       console.log("Team: ", response.data);
-      $scope.team = response.data;
+      var data = response.data.rows
+      $scope.team = data
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }

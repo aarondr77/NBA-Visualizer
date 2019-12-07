@@ -66,7 +66,6 @@ router.get('/team/:inputTeam', function(req, res) {
     else {
       console.log("here")
       console.log(data)
-
       res.json(data)
     }
   });
