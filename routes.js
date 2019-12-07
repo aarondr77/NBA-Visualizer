@@ -82,6 +82,7 @@ router.get('/fieldGoalPercentage/:inputTeam/:inputYear', function(req, res) {
       console.log(err)
     }
     else {
+      console.log('field goal results: ', data)
       res.json(data)
     }
   });

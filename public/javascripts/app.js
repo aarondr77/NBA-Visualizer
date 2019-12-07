@@ -26,7 +26,7 @@ app.controller('playerPageController', function($scope, $http) {
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
-  }, 
+  },
 
   // call the route to find the most likely shot value
   $scope.submitlikelyshotValueQuery = function () {
@@ -40,7 +40,7 @@ app.controller('playerPageController', function($scope, $http) {
       console.log("Team ERROR: ", response);
     }
   },
-  
+
   // call the route to find the number of clutch shots taken in season
   $scope.submitClutchQuery = function () {
     $http({
@@ -52,7 +52,7 @@ app.controller('playerPageController', function($scope, $http) {
     }), function errorCallback(response) {
       console.log("Team ERROR: ", response);
     }
-  } 
+  }
 });
 
 // Controller for the team page
@@ -65,12 +65,11 @@ app.controller('teamPageController', function($scope, $http) {
       url: '/fieldGoalPercentage/' + $scope.teamName + '/' + $scope.year,
       method: 'GET'
     }).then(function successCallback(response) {
+      console.log('got fgp results>>>', response.data.rows)
       var data = response.data.rows
-      console.log(response.data)
-      $scope.high_fg_results = data
+      $scope.player_fg = data
     }, function errorCallback(response) {
       console.log("Team ERROR: ", response);
     });
   }
 });
-
