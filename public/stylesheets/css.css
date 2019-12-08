@@ -2,6 +2,11 @@
   display: flex;
   flex-flow: column wrap;
   margin-top: 10px;
+  opacity: 0.9;
+}
+
+.query-container:hover {
+  opacity: 1;
 }
 
 .input-container .login-input {
@@ -24,18 +29,18 @@
   box-sizing: border-box;
   border-radius: 20px;
   outline: none;
-  background: #bd54a4;
-  color: #fff;
+  background: #17408B;
+  color: #ffff;
   cursor: pointer;
   font-size: 12px;
 }
 
 .input-container .submit-btn:hover {
-  background: #c561ae;
+  background: #17408B;
 }
 
 .input-container .submit-btn:active {
-  background: #d86bbe;
+  background: #17408B;
 }
 
 .result-container .shootingpercentage:hover , .result-container .likelyshot:hover{
