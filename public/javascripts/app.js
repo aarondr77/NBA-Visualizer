@@ -86,3 +86,34 @@ app.controller('teamPageController', function($scope, $http) {
     });
   }
 });
+
+
+app.controller('shotPageController', function($scope, $http) {
+  $scope.submitShotQuery = function() {
+    $http({
+      url: '/getShots/' + $scope.playerName + '/' + $scope.year,
+      method: 'GET'
+    }).then(function successCallback(response) {
+      console.log("success")
+      console.log("Shots: ", response.data);
+      var data = response.data.rows;
+      var processsed_data = []
+      //add the correct image source
+      for (var i = 0; i < data.length; i++) {
+        var img_source = "/assets/circle.png";
+        if (data[i][4] == 0) {
+          img_source = "/assets/x.png"
+        }
+        var top = -(data[i][2] / 455) * 330 + "";
+        var left = -(data[i][3] / 500) * 294 + "";
+        console.log("top: " + top);
+        console.log("left: " + left);
+        processsed_data.push([data[i][0],data[i][1], top + "px", left + "px", img_source]);
+      }
+
+      $scope.shots = processsed_data;
+    }, function errorCallback(response) {
+      console.log("Shots ERROR: ", response);
+    });
+  }
+});
