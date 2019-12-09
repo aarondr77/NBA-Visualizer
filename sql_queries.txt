@@ -1,3 +1,17 @@
+# Shots From a Given Player and Season
+SELECT PLAYER, SEASON, TOP_PX_LOCATION, LEFT_PX_LOCATION, OUTCOME
+  FROM shots
+  WHERE SEASON = input_year AND PLAYER = input_name
+  
+Ex)
+Takes input_player and input_season
+returns player, season, top_px_location, left_px_location, outcome
+
+SELECT PLAYER, SEASON, TOP_PX_LOCATION, LEFT_PX_LOCATION, OUTCOME
+  FROM shots
+  WHERE SEASON = 2001 AND PLAYER = 'Koby Bryant'
+
+
 # Most Likely Shot Value for Player in Particular Season
 
 SELECT *
