@@ -110,11 +110,16 @@ WHERE team.two_p_percent < seasonstats.two_p_percent and team.year = input_year
 Ex)
 Takes in input_year
 
-SELECT DISTINCT team.tm as team_name, team.year as year, draft.player as rookie
-FROM draft
-INNER JOIN seasonstats ON draft.player = seasonstats.player and seasonstats.year = (draft.year + 1)
-INNER JOIN team ON team.year = draft.year
-WHERE team.two_p_percent < seasonstats.two_p_percent and team.year = 2010
+SELECT DISTINCT team1.tm as team_name, team1.year as year, t1.player as rookie
+FROM (SELECT draft.year, draft.player, seasonstats1.tm, seasonstats1.two_p_percent
+      FROM draft
+      INNER JOIN (SELECT player, year, two_p_percent, tm
+                  FROM seasonstats) seasonstats1
+      ON draft.player = seasonstats1.player and seasonstats1.year = (draft.year + 1)) t1
+INNER JOIN (SELECT year, two_p_percent, tm
+            FROM team) team1
+ON team1.year = t1.year and team1.tm = t1.tm
+WHERE team1.two_p_percent < t1.two_p_percent and team1.year = 2010
 
 
 
@@ -130,11 +135,16 @@ WHERE draft.player = seasonstats.player and seasonstats.year = (draft.year + 1) 
 
 AFTER: We pushed the projections as close to the tables as possible, and also used joins instead of cross products.
 
-SELECT DISTINCT team1.tm as team_name, team1.year as year, draft1.player as rookie
-FROM (SELECT year, player FROM draft) draft1
-INNER JOIN (SELECT player, year, two_p_percent FROM seasonstats) seasonstats1 ON draft1.player = seasonstats1.player and seasonstats1.year = (draft1.year + 1)
-INNER JOIN (SELECT year, two_p_percent, tm FROM team) team1 ON team1.year = draft1.year
-WHERE team1.two_p_percent < seasonstats1.two_p_percent and team1.year = 2010
+SELECT DISTINCT team1.tm as team_name, team1.year as year, t1.player as rookie
+FROM (SELECT draft.year, draft.player, seasonstats1.tm, seasonstats1.two_p_percent
+      FROM draft
+      INNER JOIN (SELECT player, year, two_p_percent, tm
+                  FROM seasonstats) seasonstats1
+      ON draft.player = seasonstats1.player and seasonstats1.year = (draft.year + 1)) t1
+INNER JOIN (SELECT year, two_p_percent, tm
+            FROM team) team1
+ON team1.year = t1.year and team1.tm = t1.tm
+WHERE team1.two_p_percent < t1.two_p_percent and team1.year = 2010;
 
 0.022 seconds
 
