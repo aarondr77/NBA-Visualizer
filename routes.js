@@ -41,6 +41,9 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'views', 'player.html'));
 });
 
+router.get('/shotChart', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views', 'shot_chart.html'));
+});
 
 router.get('/team', function(req, res) {
   console.log("printing team page")
@@ -192,5 +195,22 @@ router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
   });
 });
 
+router.get('/getShots/:playerName/:year', function(req, res) {
+  var query = `
+  SELECT PLAYER, SEASON, TOP_PX_LOCATION, LEFT_PX_LOCATION, OUTCOME
+  FROM shots
+  WHERE SEASON = '` + req.params.year + `' AND PLAYER = '` + req.params.playerName + `'
+  `;
+  query_db(query, function(err, data) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      console.log(data)
+      res.json(data)
+    }
+  });
+
+});
 
 module.exports = router;
