@@ -48,19 +48,20 @@
   }
   
   .result-container {
-    display: flex;
-    flex-flow: column wrap;
-    margin-top: 10px;
+    display: block;
+    position: relative;
+    /* flex-flow: column wrap; */
+    /* margin-top: 10px; */
+    height: 330px;
+    width: 588px
   }
   
   .result-container {
-    background: url('./../assets/court.png');
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
+    background-image: url('./../assets/court.png');
+    background-repeat: no-repeat
   }
   .result-container .shotImage {
-    position: absolute;
+    /* position: relative; */
     height: 10px;
     width: 10px;
   }

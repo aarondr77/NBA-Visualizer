@@ -30,23 +30,11 @@
           <input type="text" ng-model="year" placeholder="Enter Year" class="year-input"/>
           <button ng-click="submitShotQuery()" class="submit-btn">Submit</button>
         </div>
-        <div class="result-container">
-            <img ng-repeat="s in shots" class="shotImage" ng-src="{{s[4]}}" margin-left="-100px" margin-top="-50px">
-            <!-- <div class="team">
-                <div class="header"><strong>Team Name</strong></div>
-                <div class="header"><strong>Player Name</strong></div>
-                <div class="header"><strong>Season Year</strong></div>
-                <div class="header"><strong>Player FG Percent</strong></div>
-                <div class="header"><strong>Team FG Percent</strong></div>
+        <div class="result-container" style>
+            <div ng-repeat="s in shots" style="z-index: 2; position: absolute; top: {{s[2]}}; left: {{s[3]}};">
+              <img class="shotImage" ng-src="{{s[4]}}">
             </div>
-          <div class="team" id="results" ng-repeat="t in team">
-
-            <div class="teamName">{{t[0]}}</div>
-            <div class="playerName">{{t[1]}}</div>
-            <div class="seasonYear">{{t[2]}}</div>
-            <div class="playerFgPercent">{{t[3]}}</div>
-            <div class="teamFgPercent">{{t[4]}}</div>
-          </div> -->
+        </div>
       </div>
     </div>
 
