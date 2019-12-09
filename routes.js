@@ -176,7 +176,7 @@ router.get('/clutch/:inputPlayer/:inputYear', function (req, res) {
 })
 
 
-router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
+router.get('/trueShootingPercentage/:inputPlayer', function(req, res) {
   var inputPlayer = req.params.inputPlayer;
   var query = `
     SELECT player_name, season_year as rookie_year, ts_percent
@@ -187,9 +187,11 @@ router.get('/true-shooting-percentage/:inputPlayer', function(req, res) {
     WHERE draft_year + 1 = season_year and player_name = '` + inputPlayer +`'`;
   query_db(query, function(err, data) {
     if (err) {
+      console.log("error");
       console.log(err)
     }
     else {
+      console.log(data)
       res.json(data)
     }
   });

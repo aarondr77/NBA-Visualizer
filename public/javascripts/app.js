@@ -5,7 +5,7 @@ app.controller('playerPageController', function($scope, $http) {
   // call the route to find true shooting scores
   $scope.submitTrueShootingQuery = function () {
     $http({
-      url: '/true-shooting-percentage/' + $scope.shootingpercentageInput,
+      url: '/trueShootingPercentage/' + $scope.shootingpercentageInput,
       method: 'GET'
     }).then(function successCallback(response) {
       var data = response.data.rows
