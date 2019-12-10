@@ -104,11 +104,11 @@ app.controller('shotPageController', function($scope, $http) {
         if (data[i][4] == 0) {
           img_source = "/assets/x.png"
         }
-        var top = (data[i][2] / 455) * 330 - 5 + "";
+        var top = (data[i][2] / 455) * 330 - 20 + "";
         var left = ((507 - data[i][3]) / (507 * 2)) * 588 - 5 + "";
         console.log("top: " + top);
         console.log("left: " + left);
-        processsed_data.push([data[i][0],data[i][1], top + "px", left + "px", img_source]);
+        processsed_data.push([data[i][0],data[i][1], left + "px", top + "px", img_source]);
       }
 
       $scope.shots = processsed_data;
